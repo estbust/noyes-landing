@@ -143,50 +143,50 @@ const ADVANTAGE_MATRIX = [
     rowKey: 'adv_row1',
     factorEn: 'Trial-Ready Court Litigation',
     factorEs: 'Litigio en Tribunales Listo para Juicio',
-    aloneEn: 'Insurance pushes quick lowball settlements knowing unrepresented victims fear court.',
-    aloneEs: 'La aseguradora ofrece acuerdos mínimos rápidos sabiendo que las víctimas sin abogado temen ir a corte.',
-    noyesEn: 'We prepare every case for jury trial, forcing insurers to offer full policy limits or face verdict.',
-    noyesEs: 'Preparamos cada caso para juicio por jurado, forzando a pagar el límite de póliza o enfrentar el veredicto.'
+    aloneEn: 'Insurance offers lowball nuisance payouts knowing you cannot litigate in court.',
+    aloneEs: 'Aseguradoras ofrecen pagos mínimos sabiendo que la víctima no litiga en corte.',
+    noyesEn: 'We prepare every case for trial, forcing insurers to pay maximum value.',
+    noyesEs: 'Preparamos cada caso para juicio, obligando a pagar la compensación máxima.'
   },
   {
     id: 'bilingual_access',
     rowKey: 'adv_row2',
     factorEn: 'Direct Spanish/English Attorney Access',
     factorEs: 'Acceso Directo con Abogado Bilingüe',
-    aloneEn: 'Victims are routed to call centers, unhelpful case managers, and unreturned voicemails.',
-    aloneEs: 'Desviado a operadores de call center, administradores de casos y llamadas nunca respondidas.',
-    noyesEn: 'Direct, 100% confidential access to trial litigators Juan Girón and Shernette Noyes in English or Spanish.',
-    noyesEs: 'Comunicación directa y 100% confidencial con los abogados Juan Girón y Shernette Noyes en español o inglés.'
+    aloneEn: 'Routed to impersonal call centers, junior caseworkers, and unreturned voicemails.',
+    aloneEs: 'Te transfieren a centros de llamadas y secretarias sin acceso a abogados.',
+    noyesEn: 'Direct, personal access to trial litigators Juan Girón and Shernette Noyes.',
+    noyesEs: 'Acceso directo y personal a los litigantes Juan Girón y Shernette Noyes.'
   },
   {
     id: 'immigration_immunity',
     rowKey: 'adv_row3',
     factorEn: 'Immigration Status Protection & Immunity',
     factorEs: 'Inmunidad y Protección Total de Estatus Migratorio',
-    aloneEn: 'Insurers exploit fear of deportation or legal status to suppress compensation and intimidate victims.',
-    aloneEs: 'Las aseguradoras explotan el temor a la deportación o estatus legal para reducir la compensación e intimidar.',
-    noyesEn: 'Under CT law, your right to full financial damages is 100% protected regardless of immigration status.',
-    noyesEs: 'Bajo la ley de CT, tu derecho a indemnización total está 100% protegido sin importar tu estatus migratorio.'
+    aloneEn: 'Adjusters use deportation fears and status questions to intimidate victims into quitting.',
+    aloneEs: 'Aseguradoras usan el miedo migratorio para intimidar y hacerte renunciar.',
+    noyesEn: '100% protected under CT law. Full compensation guaranteed regardless of status.',
+    noyesEs: '100% protegido por ley en CT. Compensación completa garantizada sin importar estatus.'
   },
   {
     id: 'evidence_preservation',
     rowKey: 'adv_row4',
     factorEn: 'Rapid Evidence & Black Box Preservation',
     factorEs: 'Preservación Rápida de Evidencia y Caja Negra',
-    aloneEn: 'Surveillance videos are overwritten in 7-14 days and critical accident scene evidence is lost.',
-    aloneEs: 'Los videos de vigilancia se borran en 7 a 14 días y la evidencia física de la escena se pierde.',
-    noyesEn: 'Immediate formal spoliation notices, commercial black box subpoena, and private accident reconstruction.',
-    noyesEs: 'Notificaciones inmediatas de preservación de evidencia, citación de caja negra y peritaje forense del choque.'
+    aloneEn: 'Surveillance footage is overwritten and vehicle black box data erased within days.',
+    aloneEs: 'Cámaras de seguridad y cajas negras de camiones se borran en días.',
+    noyesEn: 'Immediate formal spoliation letters and private accident reconstruction forensics.',
+    noyesEs: 'Cartas legales inmediatas de preservación y reconstrucción forense privada del choque.'
   },
   {
     id: 'contingency_fee',
     rowKey: 'adv_row5',
     factorEn: 'Financial Risk & Upfront Costs',
     factorEs: 'Riesgo Financiero y Costos Iniciales',
-    aloneEn: 'Victims face out-of-pocket medical debt, lost wages, and steep expenses with zero financial leverage.',
-    aloneEs: 'Las víctimas acumulan deudas médicas, salarios perdidos y altos costos sin ningún respaldo financiero.',
-    noyesEn: 'No Win, No Fee Guarantee ($0 Upfront). We advance all expert litigation costs. Zero financial risk.',
-    noyesEs: 'Garantía: Si No Ganamos, No Pagas ($0 Inicial). Financiamos todos los gastos periciales. Cero riesgo financiero.'
+    aloneEn: 'Victims face mounting medical bills, lost wages, and financial pressure to settle.',
+    aloneEs: 'Víctimas acumulan deudas médicas y presión financiera para aceptar cheques pequeños.',
+    noyesEn: '100% Contingency Guarantee. $0 upfront costs. You pay nothing unless we win.',
+    noyesEs: 'Garantía de Contingencia 100%. $0 inicial. No pagas nada si no ganamos.'
   }
 ];
 
@@ -957,6 +957,257 @@ const NoyesAccidentGuide = (() => {
 })();
 
 /* ==========================================================================
+   SECTION 3.5: INTERACTIVE 3-STEP QUICK CASE EVALUATION ENGINE (NoyesCaseEvaluator)
+   ========================================================================== */
+
+const NoyesCaseEvaluator = (() => {
+  const ACCIDENT_TYPES = {
+    car_truck: {
+      id: 'car_truck',
+      labelEn: 'Car & Commercial Truck Collision',
+      labelEs: 'Colisión de Auto o Camión Comercial',
+      mappedCaseType: 'truck_motorcycle'
+    },
+    slip_construction: {
+      id: 'slip_construction',
+      labelEn: 'Slip & Fall / Construction Site',
+      labelEs: 'Caída o Accidente en Obra de Construcción',
+      mappedCaseType: 'slip_fall'
+    },
+    rideshare_other: {
+      id: 'rideshare_other',
+      labelEn: 'Rideshare (Uber/Lyft) / Other Injury',
+      labelEs: 'Viaje Compartido (Uber/Lyft) u Otra Lesión',
+      mappedCaseType: 'car_accident'
+    }
+  };
+
+  const TREATMENT_STATUSES = {
+    er_visit: {
+      id: 'er_visit',
+      labelEn: 'Emergency Room / Urgent Care',
+      labelEs: 'Sala de Emergencias / Clínica de Urgencias'
+    },
+    in_treatment: {
+      id: 'in_treatment',
+      labelEn: 'Currently Receiving Doctor / PT Treatment',
+      labelEs: 'Actualmente en Tratamiento con Médico / Terapia Física'
+    },
+    no_treatment: {
+      id: 'no_treatment',
+      labelEn: 'Have Not Seen a Doctor Yet',
+      labelEs: 'Aún No He Visto a un Médico'
+    }
+  };
+
+  // Internal reactive state
+  const state = {
+    currentStep: 1,
+    selectedAccidentType: null,
+    selectedTreatment: null
+  };
+
+  /**
+   * Set current step in evaluation journey (1, 2, or 3)
+   */
+  const setStep = (step) => {
+    const num = parseInt(step, 10);
+    if (num >= 1 && num <= 3) {
+      state.currentStep = num;
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('noyes:caseEvaluatorStepChanged', {
+          detail: { step: state.currentStep }
+        }));
+      }
+    }
+    return state.currentStep;
+  };
+
+  /**
+   * Step 1: Select Accident Category
+   */
+  const selectAccidentType = (type) => {
+    if (!ACCIDENT_TYPES[type]) {
+      return { success: false, error: 'Invalid accident type' };
+    }
+    state.selectedAccidentType = type;
+    setStep(2);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('noyes:caseEvaluatorUpdated', {
+        detail: { ...getState() }
+      }));
+    }
+    return { success: true, accidentType: type, step: state.currentStep };
+  };
+
+  /**
+   * Step 2: Select Medical Treatment Status
+   */
+  const selectTreatment = (status) => {
+    if (!TREATMENT_STATUSES[status]) {
+      return { success: false, error: 'Invalid treatment status' };
+    }
+    state.selectedTreatment = status;
+    setStep(3);
+
+    // Save assessment to persistent storage
+    const result = getQualificationResult();
+    try {
+      NoyesStorage.saveAssessment({
+        type: '3_step_evaluator',
+        accidentType: state.selectedAccidentType,
+        treatmentStatus: state.selectedTreatment,
+        qualified: true,
+        priorityLevel: 'HIGH_PRIORITY',
+        timestamp: new Date().toISOString()
+      });
+    } catch (e) {
+      // Storage fallback handled gracefully
+    }
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('noyes:caseEvaluatorUpdated', {
+        detail: { ...getState(), result }
+      }));
+    }
+
+    return {
+      success: true,
+      treatmentStatus: status,
+      step: state.currentStep,
+      result
+    };
+  };
+
+  /**
+   * Step 3: High-Priority Qualification Result
+   */
+  const getQualificationResult = (lang = currentLang || 'en') => {
+    const isEs = lang === 'es';
+    const accidentObj = ACCIDENT_TYPES[state.selectedAccidentType] || ACCIDENT_TYPES.car_truck;
+    const treatmentObj = TREATMENT_STATUSES[state.selectedTreatment] || TREATMENT_STATUSES.er_visit;
+
+    return {
+      qualified: true,
+      priorityLevel: 'HIGH_PRIORITY',
+      accidentType: state.selectedAccidentType || 'car_truck',
+      accidentLabel: isEs ? accidentObj.labelEs : accidentObj.labelEn,
+      treatmentStatus: state.selectedTreatment || 'er_visit',
+      treatmentLabel: isEs ? treatmentObj.labelEs : treatmentObj.labelEn,
+      badge: isEs ? 'Revisión Prioritaria Aprobada' : 'High-Priority Review Approved',
+      title: isEs
+        ? 'Tu Caso Califica para Revisión Legal Gratuita Inmediata'
+        : 'Case Qualifies for Immediate Free Legal Review',
+      reassurance: isEs
+        ? 'Tu caso presenta fuertes indicadores para una recuperación financiera máxima. Nuestros abogados litigantes Juan Girón y Shernette Noyes están listos para revisar tu reclamo de inmediato y exigir la indemnización máxima.'
+        : 'Your case qualifies for immediate free legal review and exhibits strong merit for maximum financial recovery. Trial litigators Juan Girón and Shernette Noyes are prepared to demand full policy limits on your behalf.',
+      immigrationProtection: isEs
+        ? '100% Protegido por la Ley de CT: Tu derecho a recibir compensación financiera completa está 100% garantizado por ley, sin importar tu estatus migratorio.'
+        : '100% Protected Under CT Law: Full financial compensation is 100% protected under Connecticut law regardless of immigration status.',
+      contingencyGuarantee: isEs
+        ? 'Garantía Si No Ganamos, No Pagas: $0 honorarios iniciales. Nosotros cubrimos todos los gastos periciales y de litigio. No nos debes nada a menos que ganemos.'
+        : '$0 Upfront Fees — No Win, No Fee Guarantee. We advance all investigation and court costs. You pay nothing unless we win.',
+      ctaClaim: isEs ? 'Reclamar Mi Consulta Gratuita Ahora ($0 Inicial)' : 'Claim Your Free Consultation Now ($0 Upfront)',
+      ctaCall: isEs ? 'Llamada Directa: (203) 572-6748' : 'Call Direct: (203) 572-6748'
+    };
+  };
+
+  /**
+   * Helper method to pre-populate consultation form (#contact) and modal (#consultationModal)
+   */
+  const prefillConsultation = (accidentType, treatmentStatus) => {
+    const actType = accidentType || state.selectedAccidentType || 'car_truck';
+    const trtStatus = treatmentStatus || state.selectedTreatment || 'er_visit';
+
+    const accidentObj = ACCIDENT_TYPES[actType] || ACCIDENT_TYPES.car_truck;
+    const treatmentObj = TREATMENT_STATUSES[trtStatus] || TREATMENT_STATUSES.er_visit;
+
+    const mappedCaseType = accidentObj.mappedCaseType || 'car_accident';
+    const isEs = currentLang === 'es';
+
+    const note = isEs
+      ? `[Evaluación Rápida de Caso - Alta Prioridad]\nTipo de Accidente: ${accidentObj.labelEs}\nAtención Médica: ${treatmentObj.labelEs}\nEstado: Caso Precalificado para Revisión Gratuita ($0 Inicial / Garantía Si No Ganamos, No Pagas). 100% Protegido por Ley en CT.`
+      : `[High-Priority Case Evaluation]\nAccident Type: ${accidentObj.labelEn}\nMedical Treatment: ${treatmentObj.labelEn}\nStatus: Pre-Qualified for Immediate Free Review ($0 Upfront / No Win, No Fee). 100% Protected Under CT Law.`;
+
+    // 1. Pre-populate #contact consultation form
+    const contactForm = document.querySelector('#contact form') || document.querySelector('.consultation-form');
+    if (contactForm) {
+      const caseTypeSelect = contactForm.querySelector('select[name="caseType"]');
+      if (caseTypeSelect) {
+        caseTypeSelect.value = mappedCaseType;
+        caseTypeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      const messageField = contactForm.querySelector('textarea[name="message"]');
+      if (messageField) {
+        messageField.value = note;
+        messageField.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+
+    // 2. Pre-populate #consultationModal form
+    const modal = document.getElementById('consultationModal');
+    if (modal) {
+      const modalSelect = modal.querySelector('select[name="caseType"]');
+      if (modalSelect) {
+        modalSelect.value = mappedCaseType;
+        modalSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      const modalMessage = modal.querySelector('textarea[name="message"]');
+      if (modalMessage) {
+        modalMessage.value = note;
+        modalMessage.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+
+    return {
+      success: true,
+      accidentType: actType,
+      treatmentStatus: trtStatus,
+      mappedCaseType,
+      note
+    };
+  };
+
+  /**
+   * Reset evaluator back to Step 1
+   */
+  const reset = () => {
+    state.currentStep = 1;
+    state.selectedAccidentType = null;
+    state.selectedTreatment = null;
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('noyes:caseEvaluatorReset'));
+      window.dispatchEvent(new CustomEvent('noyes:caseEvaluatorUpdated', {
+        detail: { ...getState() }
+      }));
+    }
+    return getState();
+  };
+
+  /**
+   * Get current internal snapshot
+   */
+  const getState = () => ({
+    currentStep: state.currentStep,
+    selectedAccidentType: state.selectedAccidentType,
+    selectedTreatment: state.selectedTreatment,
+    isComplete: Boolean(state.selectedAccidentType && state.selectedTreatment)
+  });
+
+  return {
+    ACCIDENT_TYPES,
+    TREATMENT_STATUSES,
+    setStep,
+    selectAccidentType,
+    selectTreatment,
+    getQualificationResult,
+    prefillConsultation,
+    reset,
+    getState
+  };
+})();
+
+/* ==========================================================================
    SECTION 4: CLAIM EVALUATION & QUALIFICATION ENGINE (NoyesClaimEvaluator)
    ========================================================================== */
 
@@ -1337,20 +1588,20 @@ const translations = {
     adv_noyes_sub: 'Aggressive trial leverage and maximum financial recovery',
     adv_factor_label: 'Strategic Litigation Factor',
     adv_row1_title: 'Trial-Ready Court Litigation',
-    adv_row1_alone: 'Insurers push quick "nuisance value" lowball settlements knowing unrepresented victims fear the courtroom and have no trial leverage.',
-    adv_row1_noyes: 'We prepare every case for jury trial from Day One. Insurers know our trial record and pay full policy limits to avoid a courtroom verdict.',
+    adv_row1_alone: 'Insurance offers lowball nuisance payouts knowing you cannot litigate in court.',
+    adv_row1_noyes: 'We prepare every case for trial, forcing insurers to pay maximum value.',
     adv_row2_title: 'Direct Spanish/English Attorney Access',
-    adv_row2_alone: 'Victims are routed to call centers, unhelpful case managers, and unreturned voicemails with zero attorney contact.',
-    adv_row2_noyes: 'Direct, 100% confidential access to trial litigators Juan Girón and Shernette Noyes in fluent English or Spanish at every step.',
+    adv_row2_alone: 'Routed to impersonal call centers, junior caseworkers, and unreturned voicemails.',
+    adv_row2_noyes: 'Direct, personal access to trial litigators Juan Girón and Shernette Noyes.',
     adv_row3_title: 'Immigration Status Protection & Immunity',
-    adv_row3_alone: 'Insurance adjusters frequently exploit fear of deportation or legal status to intimidate accident victims into abandoning valid claims.',
-    adv_row3_noyes: 'Complete legal protection under Connecticut law. Civil injury rights and full compensation are 100% guaranteed regardless of immigration status.',
+    adv_row3_alone: 'Adjusters use deportation fears and status questions to intimidate victims into quitting.',
+    adv_row3_noyes: '100% protected under CT law. Full compensation guaranteed regardless of status.',
     adv_row4_title: 'Rapid Evidence & Black Box Preservation',
-    adv_row4_alone: 'Surveillance footage is overwritten within 7–14 days, vehicle black box data is erased, and critical physical evidence is lost.',
-    adv_row4_noyes: 'Immediate formal spoliation letters, court subpoenas for commercial truck black boxes, and private forensic accident reconstruction.',
+    adv_row4_alone: 'Surveillance footage is overwritten and vehicle black box data erased within days.',
+    adv_row4_noyes: 'Immediate formal spoliation letters and private accident reconstruction forensics.',
     adv_row5_title: 'Financial Risk & Upfront Litigation Costs',
-    adv_row5_alone: 'Victims face mounting hospital debt, lost wages, and out-of-pocket expert costs with zero financial leverage.',
-    adv_row5_noyes: '100% Contingency Guarantee: $0 upfront costs. We advance all investigation and court costs. You pay $0 unless we win your case.',
+    adv_row5_alone: 'Victims face mounting medical bills, lost wages, and financial pressure to settle.',
+    adv_row5_noyes: '100% Contingency Guarantee. $0 upfront costs. You pay nothing unless we win.',
 
     // Founder Recognition
     award_tag: 'Recognition of Our Founder',
@@ -1404,18 +1655,18 @@ const translations = {
     stories_tag: 'Proven Case Results',
     stories_title: 'Stories That Inspire: Real Victories for Real Families',
     stories_sub: 'Discover how our aggressive trial litigators and compassionate advocates delivered justice and substantial compensation for injured clients across Connecticut.',
-    story_1_badge: 'Auto Accident: $850,000 Settlement',
-    story_1_quote: '"After a reckless truck collided with my vehicle on I-95, the insurance company offered me a miserable check. Attorney Juan Girón took my case, prepared relentlessly for trial, and forced them to pay the full $850,000 policy limits. Noyes & Associates saved my family\'s future."',
+    story_1_badge: 'Commercial Truck Collision: $850,000 Settlement',
+    story_1_quote: '"After a commercial truck collided with my vehicle on I-95, the insurance company offered a lowball payout. Attorney Juan Girón provided direct bilingual trial defense, prepared relentlessly for court, and forced them to pay $850,000. Noyes & Associates saved my family\'s future."',
     story_1_author: 'Mateo R.',
-    story_1_case: 'Commercial Collision Victim (Bridgeport, CT)',
-    story_2_badge: 'Workplace Injury: $620,000 Recovery',
-    story_2_quote: '"I fell from an unsafe scaffolding at a Stamford construction site. My employer threatened to fire me because I was an immigrant. Shernette Noyes and Juan Girón proved my full rights under CT law and secured $620,000 without jeopardizing my status."',
+    story_1_case: 'Commercial Truck Collision Victim (Bridgeport, CT)',
+    story_2_badge: 'Construction Scaffolding Fall: $620,000 Recovery',
+    story_2_quote: '"I fell from an unsafe scaffolding at a Stamford jobsite. They tried to intimidate me over my immigration status, but Noyes & Associates proved my rights are 100% protected under CT law. They secured a $620,000 recovery and complete peace of mind for my medical care."',
     story_2_author: 'David G.',
-    story_2_case: 'Construction Worker (Stamford, CT)',
-    story_3_badge: 'VAWA Approval & Green Card Secured',
-    story_3_quote: '"Attorney Shernette Noyes treated me with unconditional dignity and fierce legal brilliance. When I felt completely hopeless, her team guided me through the VAWA petition with absolute confidentiality. Today I have my permanent residency."',
-    story_3_author: 'María G. & Familia',
-    story_3_case: 'Permanent Resident (Hartford, CT)',
+    story_2_case: 'Construction Fall Victim (Stamford, CT)',
+    story_3_badge: 'Auto Accident & Family Security: $340,000 Recovery',
+    story_3_quote: '"When a reckless driver crashed into us, we were overwhelmed with medical bills and trauma. Attorney Shernette Noyes provided compassionate counsel and unwavering advocacy, securing $340,000 that brought complete medical and financial peace of mind to our family."',
+    story_3_author: 'Elena M. & Family',
+    story_3_case: 'Auto Accident Victim (Hartford, CT)',
 
     // Accident Guide Checklist
     checklist_tag: 'Interactive Emergency Guide',
@@ -1425,6 +1676,41 @@ const translations = {
     checklist_mark_done: 'Mark as Completed',
     checklist_completed: 'Completed',
     checklist_step: 'Step',
+
+    // Interactive 3-Step Quick Case Evaluator
+    eval_lead_tag: 'Free Case Assessment Tool',
+    eval_lead_title: '3-Step Quick Case Evaluation',
+    eval_lead_sub: 'Answer 2 quick questions to immediately check your claim eligibility and Connecticut legal rights.',
+    eval_qualified_badge: 'High-Priority Case Qualification Verified',
+    eval_tab_1: '1. Incident Category',
+    eval_tab_2: '2. Medical Attention',
+    eval_tab_3: '3. Qualification',
+    eval_step1_badge: 'Step 1 of 3: Incident',
+    eval_step1_title: 'What Type of Accident or Injury Occurred?',
+    eval_step1_sub: 'Select the primary incident category in Connecticut.',
+    eval_opt_car_truck: 'Car & Commercial Truck Collision',
+    eval_opt_slip_construction: 'Slip & Fall / Construction Site',
+    eval_opt_rideshare_other: 'Rideshare (Uber/Lyft) / Other Injury',
+
+    eval_step2_badge: 'Step 2 of 3: Medical Care',
+    eval_step2_title: 'Have You Received Medical Attention?',
+    eval_step2_sub: 'Medical records are vital evidence against insurance denials.',
+    eval_opt_er_visit: 'Emergency Room / Urgent Care',
+    eval_opt_in_treatment: 'Currently Receiving Doctor / PT Treatment',
+    eval_opt_no_treatment: 'Have Not Seen a Doctor Yet',
+
+    eval_step3_badge: 'Step 3 of 3: Qualification',
+    eval_step3_title: 'Your High-Priority Qualification Result',
+    eval_step3_sub: 'Immediate legal protection and representation under Connecticut law.',
+    eval_result_qualified: 'Case Qualifies for Immediate Free Legal Review',
+    eval_result_reassurance: 'Your case qualifies for immediate free legal review and exhibits strong merit for maximum financial recovery. Trial litigators Juan Girón and Shernette Noyes are prepared to demand full policy limits on your behalf.',
+    eval_result_immigration: '100% Protected Under CT Law: Full financial compensation is 100% protected under Connecticut law regardless of immigration status.',
+    eval_result_contingency: '$0 Upfront Fees — No Win, No Fee Guarantee. We advance all litigation costs.',
+    eval_cta_claim: 'Claim Your Free Consultation Now ($0 Upfront)',
+    eval_cta_call: 'Call Direct: (203) 572-6748',
+    eval_btn_next: 'Next Step →',
+    eval_btn_back: '← Back',
+    eval_btn_restart: 'Start Over',
 
     // Claim Evaluator
     eval_tag: 'Free 60-Second Case Assessment',
@@ -1600,20 +1886,20 @@ const translations = {
     adv_noyes_sub: 'Apalancamiento de juicio implacable y máxima compensación',
     adv_factor_label: 'Factor Estratégico de Litigio',
     adv_row1_title: 'Litigio en Tribunales Listo para Juicio',
-    adv_row1_alone: 'La aseguradora ofrece acuerdos mínimos rápidos sabiendo que las víctimas sin abogado temen a la corte y carecen de apalancamiento.',
-    adv_row1_noyes: 'Preparamos cada caso para juicio con jurado desde el Día 1. Las aseguradoras conocen nuestro récord y pagan los límites para evitar la corte.',
+    adv_row1_alone: 'Aseguradoras ofrecen pagos mínimos sabiendo que la víctima no litiga en corte.',
+    adv_row1_noyes: 'Preparamos cada caso para juicio, obligando a pagar la compensación máxima.',
     adv_row2_title: 'Acceso Directo con Tu Abogado Bilingüe',
-    adv_row2_alone: 'Las víctimas son desviadas a call centers, secretarias y buzones de voz que nunca se responden, sin hablar con su abogado.',
-    adv_row2_noyes: 'Comunicación directa y 100% confidencial con los litigantes Juan Girón y Shernette Noyes en español o inglés en todo momento.',
+    adv_row2_alone: 'Te transfieren a centros de llamadas y secretarias sin acceso a abogados.',
+    adv_row2_noyes: 'Acceso directo y personal a los litigantes Juan Girón y Shernette Noyes.',
     adv_row3_title: 'Inmunidad y Protección Total de Estatus Migratorio',
-    adv_row3_alone: 'Los ajustadores intentan intimidar a las víctimas con el estatus migratorio o amenazas para que renuncien a sus derechos legítimos.',
-    adv_row3_noyes: 'Inmunidad legal total bajo la ley de Connecticut. El derecho a indemnización completa está 100% protegido sin importar el estatus migratorio.',
+    adv_row3_alone: 'Aseguradoras usan el miedo migratorio para intimidar y hacerte renunciar.',
+    adv_row3_noyes: '100% protegido por ley en CT. Compensación completa garantizada sin importar estatus.',
     adv_row4_title: 'Preservación Rápida de Evidencia y Caja Negra',
-    adv_row4_alone: 'Las grabaciones de cámaras se borran en 7 a 14 días, la caja negra del camión se sobreescribe y se pierden pruebas esenciales.',
-    adv_row4_noyes: 'Órdenes inmediatas de preservación judicial, citación de cajas negras de camiones comerciales y reconstrucción forense del accidente.',
+    adv_row4_alone: 'Cámaras de seguridad y cajas negras de camiones se borran en días.',
+    adv_row4_noyes: 'Cartas legales inmediatas de preservación y reconstrucción forense privada del choque.',
     adv_row5_title: 'Riesgo Financiero y Costos Iniciales',
-    adv_row5_alone: 'Las víctimas sufren deudas médicas, salarios perdidos y gastos de bolsillo sin ningún respaldo frente a aseguradoras corporativas.',
-    adv_row5_noyes: 'Garantía 100% Si No Ganamos, No Pagas: $0 costo inicial. Financiamos todos los peritajes y gastos judiciales. Pagas $0 a menos que ganemos.',
+    adv_row5_alone: 'Víctimas acumulan deudas médicas y presión financiera para aceptar cheques pequeños.',
+    adv_row5_noyes: 'Garantía de Contingencia 100%. $0 inicial. No pagas nada si no ganamos.',
 
     // Founder Recognition
     award_tag: 'Reconocimiento a Nuestra Fundadora',
@@ -1667,18 +1953,18 @@ const translations = {
     stories_tag: 'Resultados Comprobados',
     stories_title: 'Historias que Inspiran: Victorias Reales para Familias Reales',
     stories_sub: 'Descubre cómo nuestros abogados litigantes consiguieron justicia y compensaciones millonarias para personas lesionadas en todo Connecticut.',
-    story_1_badge: 'Accidente de Auto: Acuerdo de $850,000',
-    story_1_quote: '"Tras un choque violento contra un camión en la I-95, la aseguradora me ofreció una miseria. El abogado Juan Girón tomó mi caso, se preparó para juicio y no se detuvo hasta obligarlos a pagar los $850,000 del límite de la póliza. Noyes & Associates salvó a mi familia."',
+    story_1_badge: 'Colisión con Camión Comercial: Acuerdo de $850,000',
+    story_1_quote: '"Tras un choque contra un camión comercial en la I-95, la aseguradora me ofreció una miseria. El abogado Juan Girón me brindó defensa directa y bilingüe de juicio, se preparó para la corte y los obligó a pagar $850,000. Noyes & Associates salvó el futuro de mi familia."',
     story_1_author: 'Mateo R.',
-    story_1_case: 'Víctima de Accidente de Tránsito (Bridgeport, CT)',
-    story_2_badge: 'Caída Laboral: $620,000 Recuperados',
-    story_2_quote: '"Caí de un andamio peligroso en una construcción en Stamford. El empleador me amenazó con despedirme por ser inmigrante. Shernette y Juan demostraron mis derechos plenos bajo la ley de CT y ganaron $620,000 sin arriesgar mi estatus."',
+    story_1_case: 'Víctima de Choque con Camión (Bridgeport, CT)',
+    story_2_badge: 'Caída en Construcción: Recuperación de $620,000',
+    story_2_quote: '"Caí de un andamio inseguro en Stamford. Quisieron intimidarme por mi estatus migratorio, pero Noyes & Associates demostró que mis derechos están 100% protegidos bajo la ley de CT. Lograron $620,000 y total tranquilidad para mi recuperación médica."',
     story_2_author: 'David G.',
-    story_2_case: 'Trabajador de Construcción (Stamford, CT)',
-    story_3_badge: 'Aprobación de VAWA y Residencia Permanente',
-    story_3_quote: '"La abogada Shernette Noyes me brindó apoyo humano incondicional y destreza legal impecable. Cuando creí que no había salida, llevó mi petición VAWA con total discreción. Hoy tengo mi Green Card y tranquilidad."',
-    story_3_author: 'María G. & Familia',
-    story_3_case: 'Residente Legal Permanente (Hartford, CT)',
+    story_2_case: 'Víctima de Caída en Obra (Stamford, CT)',
+    story_3_badge: 'Accidente de Auto y Seguridad Familiar: $340,000',
+    story_3_quote: '"Cuando un conductor imprudente nos chocó, estábamos abrumados por deudas médicas y angustia. La abogada Shernette Noyes nos brindó asesoría compasiva y firmeza legal, recuperando $340,000 que devolvieron total tranquilidad médica y financiera a mi familia."',
+    story_3_author: 'Elena M. y Familia',
+    story_3_case: 'Víctima de Accidente de Auto (Hartford, CT)',
 
     // Accident Guide Checklist
     checklist_tag: 'Guía Interactiva de Emergencia',
@@ -1688,6 +1974,41 @@ const translations = {
     checklist_mark_done: 'Marcar como Completado',
     checklist_completed: 'Completado',
     checklist_step: 'Paso',
+
+    // Evaluador Rápido de Casos en 3 Pasos
+    eval_lead_tag: 'Herramienta de Evaluación Gratuita',
+    eval_lead_title: 'Evaluación Rápida de Casos en 3 Pasos',
+    eval_lead_sub: 'Responde 2 preguntas rápidas para verificar de inmediato la viabilidad de tu caso y tus derechos legales en Connecticut.',
+    eval_qualified_badge: 'Calificación de Caso de Alta Prioridad Verificada',
+    eval_tab_1: '1. Categoría del Accidente',
+    eval_tab_2: '2. Atención Médica',
+    eval_tab_3: '3. Calificación',
+    eval_step1_badge: 'Paso 1 de 3: Incidente',
+    eval_step1_title: '¿Qué Tipo de Accidente o Lesión Ocurrió?',
+    eval_step1_sub: 'Selecciona la categoría principal del incidente en Connecticut.',
+    eval_opt_car_truck: 'Colisión de Auto o Camión Comercial',
+    eval_opt_slip_construction: 'Caída o Accidente en Obra de Construcción',
+    eval_opt_rideshare_other: 'Viaje Compartido (Uber/Lyft) u Otra Lesión',
+
+    eval_step2_badge: 'Paso 2 de 3: Atención Médica',
+    eval_step2_title: '¿Has Recibido Atención Médica?',
+    eval_step2_sub: 'Los registros médicos son evidencia esencial frente a la aseguradora.',
+    eval_opt_er_visit: 'Sala de Emergencias / Clínica de Urgencias',
+    eval_opt_in_treatment: 'Actualmente en Tratamiento con Médico / Terapia Física',
+    eval_opt_no_treatment: 'Aún No He Visto a un Médico',
+
+    eval_step3_badge: 'Paso 3 de 3: Calificación',
+    eval_step3_title: 'Resultado de Calificación de Alta Prioridad',
+    eval_step3_sub: 'Protección legal inmediata y representación bajo la ley de Connecticut.',
+    eval_result_qualified: 'Tu Caso Califica para Revisión Legal Gratuita Inmediata',
+    eval_result_reassurance: 'Tu caso presenta fuertes méritos para una recuperación financiera máxima. Nuestros litigantes están listos para exigir la indemnización máxima en tu nombre.',
+    eval_result_immigration: '100% Protegido por Ley en CT: Tu compensación financiera completa está estrictamente protegida sin importar tu estatus migratorio.',
+    eval_result_contingency: '$0 Honorarios Iniciales — Garantía Si No Ganamos, No Pagas. Cubrimos todos los gastos legales.',
+    eval_cta_claim: 'Reclamar Mi Consulta Gratuita Ahora ($0 Inicial)',
+    eval_cta_call: 'Llamada Directa: (203) 572-6748',
+    eval_btn_next: 'Siguiente Paso →',
+    eval_btn_back: '← Volver',
+    eval_btn_restart: 'Reiniciar Evaluación',
 
     // Claim Evaluator
     eval_tag: 'Evaluación Gratuita en 60 Segundos',
@@ -2113,7 +2434,7 @@ function showSuccessToast(message) {
 
 if (typeof window !== 'undefined') {
   window.NoyesApp = {
-    version: '2.0.0',
+    version: '2.1.0',
     currentLang,
     caseTypes: CASE_TYPES,
     lawConstants: CT_LAW_CONSTANTS,
@@ -2124,6 +2445,7 @@ if (typeof window !== 'undefined') {
     validator: NoyesValidator,
     accidentGuide: NoyesAccidentGuide,
     claimEvaluator: NoyesClaimEvaluator,
+    caseEvaluator: NoyesCaseEvaluator,
     submitConsultationForm,
     getTranslation,
     translateSelectOptions,
@@ -2134,6 +2456,7 @@ if (typeof window !== 'undefined') {
       }
     }
   };
+  window.NoyesCaseEvaluator = NoyesCaseEvaluator;
 }
 
 /* ==========================================================================
@@ -2167,6 +2490,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModals();
   initLanguageSwitcher();
   initParallaxEffects();
+  initCaseEvaluatorUI();
 });
 
 /* 1. SCROLL PROGRESS BAR */
@@ -2278,18 +2602,29 @@ function initCounterAnimations() {
   const counterElements = document.querySelectorAll('.stat-number');
   if (!counterElements.length) return;
 
-  let hasAnimated = false;
-  const section = document.querySelector('.stats-section');
+  // Static Fallback: If IntersectionObserver is not supported, leave static fallback numbers untouched
+  if (!('IntersectionObserver' in window)) return;
+
+  const section = document.querySelector('.stats-section') || counterElements[0].closest('section');
   if (!section) return;
+
+  let hasAnimated = false;
 
   const animate = () => {
     if (hasAnimated) return;
     hasAnimated = true;
 
     counterElements.forEach(counter => {
-      const target = parseFloat(counter.getAttribute('data-target'));
-      const isFloat = counter.getAttribute('data-float') === 'true';
+      const targetAttr = counter.getAttribute('data-target');
+      const rawTarget = targetAttr !== null ? targetAttr : counter.textContent.trim().replace(/[^0-9.]/g, '');
+      const target = parseFloat(rawTarget);
+      if (isNaN(target)) return;
+
+      const isFloat = counter.getAttribute('data-float') === 'true' || rawTarget.includes('.');
       const duration = 2000;
+
+      // Reset text to 0 ONLY upon first IntersectionObserver trigger
+      counter.textContent = isFloat ? '0.0' : '0';
       const startTime = performance.now();
 
       const updateCount = (currentTime) => {
@@ -2315,10 +2650,12 @@ function initCounterAnimations() {
     });
   };
 
-  const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         animate();
+        obs.unobserve(entry.target);
+        obs.disconnect();
       }
     });
   }, { threshold: 0.25 });
@@ -2503,3 +2840,90 @@ function initLanguageSwitcher() {
     });
   });
 }
+
+/* 11. INTERACTIVE 3-STEP QUICK CASE EVALUATOR UI */
+function initCaseEvaluatorUI() {
+  const evaluatorContainer = document.querySelector('.case-evaluator-widget, #case-evaluator, #evaluator, [data-evaluator-container]');
+  if (!evaluatorContainer) return;
+
+  const stepCards = evaluatorContainer.querySelectorAll('[data-eval-step-card]');
+  const typeButtons = evaluatorContainer.querySelectorAll('[data-accident-type]');
+  const treatmentButtons = evaluatorContainer.querySelectorAll('[data-treatment]');
+  const restartButtons = evaluatorContainer.querySelectorAll('[data-eval-restart]');
+  const prefillButtons = evaluatorContainer.querySelectorAll('[data-eval-prefill], [data-eval-action="prefill"]');
+
+  const syncUI = () => {
+    if (typeof NoyesCaseEvaluator === 'undefined') return;
+    const state = NoyesCaseEvaluator.getState();
+    const lang = (window.NoyesApp && window.NoyesApp.currentLang) || 'en';
+
+    // Step cards visibility / active class
+    stepCards.forEach(card => {
+      const stepNum = parseInt(card.getAttribute('data-eval-step-card'), 10);
+      card.classList.toggle('active', stepNum === state.currentStep);
+    });
+
+    // Option selections active state
+    typeButtons.forEach(btn => {
+      btn.classList.toggle('selected', btn.getAttribute('data-accident-type') === state.selectedAccidentType);
+    });
+
+    treatmentButtons.forEach(btn => {
+      btn.classList.toggle('selected', btn.getAttribute('data-treatment') === state.selectedTreatment);
+    });
+
+    // Step 3 Qualification result text population
+    if (state.currentStep === 3) {
+      const result = NoyesCaseEvaluator.getQualificationResult(lang);
+      const headlineEl = evaluatorContainer.querySelector('[data-eval-result="headline"]');
+      if (headlineEl) headlineEl.textContent = result.title;
+
+      const reassuranceEl = evaluatorContainer.querySelector('[data-eval-result="reassurance"]');
+      if (reassuranceEl) reassuranceEl.textContent = result.reassurance;
+
+      const immNoticeEl = evaluatorContainer.querySelector('[data-eval-result="immigration"]');
+      if (immNoticeEl) immNoticeEl.textContent = result.immigrationProtection;
+
+      const contNoticeEl = evaluatorContainer.querySelector('[data-eval-result="contingency"]');
+      if (contNoticeEl) contNoticeEl.textContent = result.contingencyGuarantee;
+    }
+  };
+
+  typeButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const type = btn.getAttribute('data-accident-type');
+      NoyesCaseEvaluator.selectAccidentType(type);
+      syncUI();
+    });
+  });
+
+  treatmentButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const status = btn.getAttribute('data-treatment');
+      NoyesCaseEvaluator.selectTreatment(status);
+      syncUI();
+    });
+  });
+
+  restartButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      NoyesCaseEvaluator.reset();
+      syncUI();
+    });
+  });
+
+  prefillButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      NoyesCaseEvaluator.prefillConsultation();
+    });
+  });
+
+  window.addEventListener('noyes:languageChanged', syncUI);
+  window.addEventListener('noyes:caseEvaluatorUpdated', syncUI);
+  syncUI();
+}
+

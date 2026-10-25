@@ -1603,6 +1603,21 @@ const translations = {
     adv_row5_alone: 'Victims face mounting medical bills, lost wages, and financial pressure to settle.',
     adv_row5_noyes: '100% Contingency Guarantee. $0 upfront costs. You pay nothing unless we win.',
 
+    // Real Client Stories (Testimonials)
+    client_stories_badge: 'Real Client Stories',
+    client_stories_title: 'Trusted by Injured Families Across Connecticut',
+    client_stories_sub: "See how our bilingual trial litigators protect our clients' rights, health, and financial future when everything is on the line.",
+    client_story_1_tag: 'Workplace Fall • Bridgeport, CT',
+    client_story_1_quote: 'After falling at a construction site, my boss told me not to report it because of my immigration status. I was terrified and in severe pain. Attorney Juan Girón spoke to me directly in Spanish, explained that Connecticut law protects me, and fought until my surgeries and lost wages were completely covered.',
+    client_story_1_author: 'Carlos M. — Construction Injury Client',
+    client_story_2_tag: 'I-95 Highway Crash • New Haven, CT',
+    client_story_2_quote: "The insurance company tried to pressure me into signing a quick check that barely covered my initial ER visit. Shernette Noyes and her litigation team stepped in immediately, took over every call, and prepared my case for court. They secured a settlement ten times higher than the insurer's first offer.",
+    client_story_2_author: 'David R. — Highway Collision Client',
+    client_story_3_tag: 'Rideshare Collision • Stamford, CT',
+    client_story_3_quote: "Unlike huge TV law firms where you only talk to receptionists, at Noyes & Associates I had direct access to my attorneys from day one. I didn't pay a single dollar out of pocket, they arranged my physical therapy specialists, and they treated my family with genuine respect.",
+    client_story_3_author: 'Elena V. — Personal Injury Client',
+    client_stories_disclaimer: '*Client initials are used to protect privacy. Past results do not guarantee similar future outcomes under Connecticut law.',
+
     // Founder Recognition
     award_tag: 'Recognition of Our Founder',
     award_title: 'Honored at the 17th Annual Sweet Mother Awards 2026',
@@ -1900,6 +1915,21 @@ const translations = {
     adv_row5_title: 'Riesgo Financiero y Costos Iniciales',
     adv_row5_alone: 'Víctimas acumulan deudas médicas y presión financiera para aceptar cheques pequeños.',
     adv_row5_noyes: 'Garantía de Contingencia 100%. $0 inicial. No pagas nada si no ganamos.',
+
+    // Real Client Stories (Testimonials)
+    client_stories_badge: 'Historias Reales de Clientes',
+    client_stories_title: 'Respaldados por Familias Lesionadas en Todo Connecticut',
+    client_stories_sub: 'Descubre cómo nuestros abogados litigantes bilingües protegen los derechos, la salud y el futuro financiero de nuestros clientes cuando todo está en juego.',
+    client_story_1_tag: 'Caída Laboral • Bridgeport, CT',
+    client_story_1_quote: 'Después de caer en una construcción, mi jefe me dijo que no lo reportara por mi estatus migratorio. Tenía mucho miedo y un dolor insoportable. El abogado Juan Girón habló conmigo directamente en español, me explicó que la ley de Connecticut me protege y peleó hasta cubrir todas mis cirugías y salarios perdidos.',
+    client_story_1_author: 'Carlos M. — Cliente de Accidente en Construcción',
+    client_story_2_tag: 'Choque en la I-95 • New Haven, CT',
+    client_story_2_quote: 'La aseguradora intentó presionarme para firmar un cheque rápido que apenas cubría mi primera visita a emergencias. Shernette Noyes y su equipo intervinieron de inmediato, se hicieron cargo de cada llamada y prepararon mi caso para ir a corte. Lograron una indemnización diez veces mayor a la primera oferta.',
+    client_story_2_author: 'David R. — Cliente de Accidente en Autopista',
+    client_story_3_tag: 'Colisión en Rideshare • Stamford, CT',
+    client_story_3_quote: 'A diferencia de las firmas gigantes de televisión donde solo hablas con recepcionistas, en Noyes & Associates tuve acceso directo a mis abogados desde el primer día. No pagué ni un solo dólar de mi bolsillo, coordinaron a mis especialistas de terapia física y trataron a mi familia con verdadero respeto.',
+    client_story_3_author: 'Elena V. — Cliente de Lesiones Personales',
+    client_stories_disclaimer: '*Se utilizan iniciales para proteger la privacidad del cliente. Los resultados pasados no garantizan resultados similares bajo la ley de Connecticut.',
 
     // Founder Recognition
     award_tag: 'Reconocimiento a Nuestra Fundadora',

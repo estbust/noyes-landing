@@ -79,6 +79,235 @@ const CT_LAW_CONSTANTS = {
 };
 
 /**
+ * Firm Headquarters and Official Office Information Data Model
+ * Primary source of truth for Local SEO, Schema.org and firm contact metadata.
+ */
+const FIRM_DETAILS = Object.freeze({
+  name: 'Noyes & Associates LLC',
+  legalName: 'Noyes & Associates LLC',
+  alternateName: 'Noyes & Associates Personal Injury & Trial Lawyers',
+  url: 'https://noyeslawyers.com/en',
+  telephone: '+1-203-572-6748',
+  phoneFormatted: '(203) 572-6748',
+  email: 'ask@noyeslawyers.com',
+  priceRange: '$0 Upfront (Contingency Fee Only)',
+  image: 'https://noyeslawyers.com/assets/images/logo.png',
+  description: '100% bilingual (English & Spanish) Connecticut Personal Injury trial lawyers based in Stratford, CT, fighting insurance companies for maximum compensation in car, commercial truck, construction, and premises accidents—regardless of immigration status.',
+  slogan: 'Defending the Injured. Demanding Maximum Compensation.',
+  currenciesAccepted: 'USD',
+  paymentAccepted: 'Contingency Fee (No Win, No Fee)',
+  address: Object.freeze({
+    streetAddress: '611 Access Rd, 1st Floor',
+    addressLocality: 'Stratford',
+    addressRegion: 'CT',
+    postalCode: '06615',
+    addressCountry: 'US'
+  }),
+  geo: Object.freeze({
+    latitude: 41.1685,
+    longitude: -73.1368
+  }),
+  openingHoursSpecification: Object.freeze([
+    {
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ],
+      opens: '00:00',
+      closes: '23:59'
+    }
+  ]),
+  areaServed: Object.freeze([
+    'Connecticut',
+    'Stratford',
+    'Bridgeport',
+    'Hartford',
+    'New Haven',
+    'Stamford',
+    'Waterbury',
+    'Norwalk',
+    'Danbury'
+  ]),
+  availableLanguage: Object.freeze(['English', 'Spanish']),
+  knowsAbout: Object.freeze([
+    'Car & Auto Accidents Litigation',
+    'Commercial Truck & Semi-Truck Collisions',
+    'Motorcycle Accidents & Catastrophic Injuries',
+    'Slip, Trip & Fall Premises Liability',
+    'Workplace Injuries & Construction Site Accidents',
+    'Catastrophic Brain & Spinal Cord Trauma',
+    'Immigration Defense & Deportation Relief',
+    'Connecticut Personal Injury Law & Trial Practice'
+  ]),
+  founder: Object.freeze([
+    {
+      type: 'Person',
+      name: 'Juan Girón',
+      jobTitle: 'Senior Partner & Lead Trial Litigator'
+    },
+    {
+      type: 'Person',
+      name: 'Shernette Noyes de Girón',
+      jobTitle: 'Founder & Managing Partner'
+    }
+  ]),
+  aggregateRating: Object.freeze({
+    ratingValue: '4.9',
+    reviewCount: '120',
+    bestRating: '5',
+    worstRating: '1'
+  })
+});
+
+/**
+ * Generates the Schema.org JSON-LD @graph compliant specification
+ * for Local SEO, LegalService, Attorney, and FAQPage.
+ * @returns {Object} JSON-LD structured data graph
+ */
+function getSchemaGraph() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': ['LegalService', 'Attorney'],
+        '@id': 'https://noyeslawyers.com/#legalservice',
+        'name': 'Noyes & Associates LLC',
+        'alternateName': 'Noyes & Associates Personal Injury & Trial Lawyers',
+        'url': 'https://noyeslawyers.com/en',
+        'telephone': '+1-203-572-6748',
+        'priceRange': '$0 Upfront (Contingency Fee Only)',
+        'image': 'https://noyeslawyers.com/assets/images/logo.png',
+        'description': '100% bilingual (English & Spanish) Connecticut Personal Injury trial lawyers based in Stratford, CT, fighting insurance companies for maximum compensation in car, commercial truck, construction, and premises accidents—regardless of immigration status.',
+        'slogan': 'Defending the Injured. Demanding Maximum Compensation.',
+        'currenciesAccepted': 'USD',
+        'paymentAccepted': 'Contingency Fee (No Win, No Fee)',
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': FIRM_DETAILS.address.streetAddress,
+          'addressLocality': FIRM_DETAILS.address.addressLocality,
+          'addressRegion': FIRM_DETAILS.address.addressRegion,
+          'postalCode': FIRM_DETAILS.address.postalCode,
+          'addressCountry': FIRM_DETAILS.address.addressCountry
+        },
+        'geo': {
+          '@type': 'GeoCoordinates',
+          'latitude': FIRM_DETAILS.geo.latitude,
+          'longitude': FIRM_DETAILS.geo.longitude
+        },
+        'openingHoursSpecification': [
+          {
+            '@type': 'OpeningHoursSpecification',
+            'dayOfWeek': [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday'
+            ],
+            'opens': '00:00',
+            'closes': '23:59'
+          }
+        ],
+        'areaServed': [
+          'Connecticut',
+          'Stratford',
+          'Bridgeport',
+          'Hartford',
+          'New Haven',
+          'Stamford',
+          'Waterbury',
+          'Norwalk',
+          'Danbury'
+        ],
+        'availableLanguage': ['English', 'Spanish'],
+        'knowsAbout': [
+          'Car & Auto Accidents Litigation',
+          'Commercial Truck & Semi-Truck Collisions',
+          'Motorcycle Accidents & Catastrophic Injuries',
+          'Slip, Trip & Fall Premises Liability',
+          'Workplace Injuries & Construction Site Accidents',
+          'Catastrophic Brain & Spinal Cord Trauma',
+          'Immigration Defense & Deportation Relief',
+          'Connecticut Personal Injury Law & Trial Practice'
+        ],
+        'founder': [
+          {
+            '@type': 'Person',
+            'name': 'Juan Girón',
+            'jobTitle': 'Senior Partner & Lead Trial Litigator'
+          },
+          {
+            '@type': 'Person',
+            'name': 'Shernette Noyes de Girón',
+            'jobTitle': 'Founder & Managing Partner'
+          }
+        ],
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '4.9',
+          'reviewCount': '120',
+          'bestRating': '5',
+          'worstRating': '1'
+        }
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://noyeslawyers.com/#faq',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': "Can I file an injury claim in Connecticut if I am undocumented or don't have a Social Security Number?",
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'Yes, 100%. Under Connecticut law, every injured person has the legal right to demand full financial compensation for medical bills, lost wages, and pain and suffering—regardless of immigration status. Insurance companies are prohibited from using your status to deny a valid claim, and all conversations with our firm are strictly confidential under attorney-client privilege.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'How much does it cost to hire Noyes & Associates? Do I pay anything upfront?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': "You pay $0 out of pocket and $0 upfront. We work strictly on a contingency fee basis, which means we advance all court filing fees, accident reconstruction costs, and medical record expenses. We only get paid a percentage of the final settlement or court verdict we win for you. If we don't win your case, you owe us nothing."
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': "How do I pay for hospital bills, surgery, or physical therapy if I don't have health insurance?",
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': "Do not delay medical care out of fear of bills. Our firm works with a trusted network of top medical specialists, orthopedic surgeons, and physical therapists across Connecticut who treat our clients under a 'Letter of Protection'—meaning they wait to be paid directly out of your final legal settlement."
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': "The other driver's insurance adjuster already offered me a check. Should I sign?",
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': "Never sign any release, medical authorization, or quick check from an insurance company before speaking with a trial lawyer. Early offers are 'lowball' tactics designed to close your case forever before you realize the true long-term cost of your spinal, head, or joint injuries."
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': "What if I can't travel to your office because of my injuries or work schedule?",
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'We come to you or handle everything digitally. We offer 24/7 phone and WhatsApp consultations, electronic document signing from your phone, and hospital or home visits across Connecticut when injuries are severe.'
+            }
+          }
+        ]
+      }
+    ]
+  };
+}
+
+/**
  * Multi-Million Dollar Verdicts & Settlements Data Model
  */
 const VERDICTS_SHOWCASE = [
@@ -1755,11 +1984,22 @@ const translations = {
     form_contact_time: 'Preferred Contact Time',
     form_consult_pref: 'Consultation Preference',
     form_consult_virtual: 'Virtual Consultation (Video / Phone)',
-    form_consult_inperson: 'In-Person Appointment (Stratford, CT Office)',
+    form_consult_inperson: 'In-Person Appointment (Stratford Office: 611 Access Rd, 1st Floor)',
     form_message_label: 'Case Details or Questions',
     form_message_placeholder: 'Briefly describe your accident, injuries, date of crash, or legal questions...',
     form_disclaimer: 'Submitting this form does not establish an attorney-client relationship. All submitted data is strictly confidential. $0 upfront fees under our "No Win, No Fee" guarantee.',
     form_success_msg: 'Thank you! Your case details have been received. Attorney Juan Girón or our bilingual legal team will contact you shortly.',
+
+    // Firm Office & Local SEO Information
+    office_title: 'Stratford Headquarters',
+    office_street: '611 Access Rd, 1st Floor',
+    office_locality: 'Stratford',
+    office_region: 'CT',
+    office_zip: '06615',
+    office_country: 'US',
+    office_full_address: '611 Access Rd, 1st Floor, Stratford, CT 06615',
+    office_headquarters_desc: 'Stratford, CT Headquarters (Serving All CT Superior Courts)',
+    office_hours_desc: 'Available 24/7 for Injury Emergencies',
 
     // Validations & Errors
     required_field: 'This field is required',
@@ -2098,11 +2338,22 @@ const translations = {
     form_contact_time: 'Horario Preferido de Contacto',
     form_consult_pref: 'Modalidad de Consulta',
     form_consult_virtual: 'Consulta Virtual (Videollamada / Teléfono)',
-    form_consult_inperson: 'Cita Presencial (Oficina en Stratford, CT)',
+    form_consult_inperson: 'Cita Presencial (Oficina en Stratford: 611 Access Rd, 1st Floor)',
     form_message_label: 'Detalles del Caso o Preguntas',
     form_message_placeholder: 'Describe brevemente el choque, lesiones sufridas, fecha o preguntas legales...',
     form_disclaimer: 'El envío de este formulario no constituye relación abogado-cliente. Toda información es estrictamente confidencial. Garantía "Si No Ganamos, No Pagas" ($0 costo inicial).',
     form_success_msg: '¡Gracias! Hemos recibido tu información. El abogado Juan Girón o nuestro equipo legal bilingüe se comunicará contigo a la brevedad.',
+
+    // Firm Office & Local SEO Information
+    office_title: 'Sede Principal en Stratford',
+    office_street: '611 Access Rd, 1st Floor',
+    office_locality: 'Stratford',
+    office_region: 'CT',
+    office_zip: '06615',
+    office_country: 'US',
+    office_full_address: '611 Access Rd, 1st Floor, Stratford, CT 06615',
+    office_headquarters_desc: 'Sede en Stratford, CT (Representación en Todos los Tribunales Superiores de CT)',
+    office_hours_desc: 'Disponibles 24/7 para Emergencias de Accidentes',
 
     // Validations & Errors
     required_field: 'Este campo es obligatorio',
@@ -2533,8 +2784,10 @@ function showSuccessToast(message) {
 
 if (typeof window !== 'undefined') {
   window.NoyesApp = {
-    version: '2.1.0',
+    version: '2.2.0',
     currentLang,
+    firmDetails: FIRM_DETAILS,
+    getSchemaGraph,
     caseTypes: CASE_TYPES,
     lawConstants: CT_LAW_CONSTANTS,
     verdicts: VERDICTS_SHOWCASE,

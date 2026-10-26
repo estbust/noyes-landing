@@ -1798,7 +1798,37 @@ const translations = {
     opt_ins_yes_other_party: 'At-fault driver has active insurance',
     opt_ins_yes_own_policy: 'Own policy (CT UM/UIM Coverage)',
     opt_ins_hit_and_run: 'Hit-and-Run / Fled Scene',
-    opt_ins_uninsured: 'At-fault driver is Uninsured'
+    opt_ins_uninsured: 'At-fault driver is Uninsured',
+
+    // Legal Accreditations & Memberships Trust Bar
+    trust_bar_label: 'RECOGNIZED COURTROOM EXCELLENCE & PROFESSIONAL AFFILIATIONS',
+    trust_bar_b1: 'Connecticut Bar Association (CBA)',
+    trust_bar_b2: 'Connecticut Trial Lawyers Association (CTLA)',
+    trust_bar_b3: 'American Association for Justice (AAJ)',
+    trust_bar_b4: 'Million Dollar Trial Advocates',
+    trust_bar_b5: 'Top Rated 4.9★ Client Advocacy',
+
+    // FAQ Section Header & CT Legal Urgency Banner
+    faq_urgency_title: '⚠️ Strict Connecticut Legal Deadlines Apply (Conn. Gen. Stat. § 52-584)',
+    faq_urgency_desc: 'In Connecticut, you generally have only 2 years from the date of an accident to file a personal injury lawsuit—and as little as 90 days to file a formal notice for defective roads or municipal claims. Do not wait until critical evidence disappears.',
+    faq_eyebrow: 'Clear Answers. Zero Legal Jargon.',
+    faq_title: 'Frequently Asked Questions After an Accident in CT',
+    faq_sub: 'Everything you need to know about protecting your rights, medical care, and financial recovery.',
+
+    // FAQ Accordion Items (Q1 - Q5)
+    faq_q1: 'Can I file an injury claim in Connecticut if I am undocumented or don\'t have a Social Security Number?',
+    faq_a1: 'Yes, 100%. Under Connecticut law, every injured person has the legal right to demand full financial compensation for medical bills, lost wages, and pain and suffering—regardless of immigration status. Insurance companies are prohibited from using your status to deny a valid claim, and all conversations with our firm are strictly confidential under attorney-client privilege.',
+    faq_q2: 'How much does it cost to hire Noyes & Associates? Do I pay anything upfront?',
+    faq_a2: 'You pay $0 out of pocket and $0 upfront. We work strictly on a contingency fee basis, which means we advance all court filing fees, accident reconstruction costs, and medical record expenses. We only get paid a percentage of the final settlement or court verdict we win for you. If we don\'t win your case, you owe us nothing.',
+    faq_q3: 'How do I pay for hospital bills, surgery, or physical therapy if I don\'t have health insurance?',
+    faq_a3: 'Do not delay medical care out of fear of bills. Our firm works with a trusted network of top medical specialists, orthopedic surgeons, and physical therapists across Connecticut who treat our clients under a \'Letter of Protection\'—meaning they wait to be paid directly out of your final legal settlement.',
+    faq_q4: 'The other driver\'s insurance adjuster already offered me a check. Should I sign?',
+    faq_a4: 'Never sign any release, medical authorization, or quick check from an insurance company before speaking with a trial lawyer. Early offers are \'lowball\' tactics designed to close your case forever before you realize the true long-term cost of your spinal, head, or joint injuries.',
+    faq_q5: 'What if I can\'t travel to your office because of my injuries or work schedule?',
+    faq_a5: 'We come to you or handle everything digitally. We offer 24/7 phone and WhatsApp consultations, electronic document signing from your phone, and hospital or home visits across Connecticut when injuries are severe.',
+
+    // WhatsApp Prefill Message
+    whatsapp_prefill_msg: 'Hello, I would like to request a free case evaluation regarding an accident in Connecticut.'
   },
 
   es: {
@@ -2111,7 +2141,37 @@ const translations = {
     opt_ins_yes_other_party: 'Conductor culpable tiene seguro activo',
     opt_ins_yes_own_policy: 'Póliza propia (Cobertura UM/UIM en CT)',
     opt_ins_hit_and_run: 'Choque y Fuga / Conductor huyó de la escena',
-    opt_ins_uninsured: 'Conductor culpable no tiene seguro'
+    opt_ins_uninsured: 'Conductor culpable no tiene seguro',
+
+    // Legal Accreditations & Memberships Trust Bar
+    trust_bar_label: 'EXCELENCIA RECONOCIDA EN TRIBUNALES Y AFILIACIONES PROFESIONALES',
+    trust_bar_b1: 'Colegio de Abogados de Connecticut (CBA)',
+    trust_bar_b2: 'Asociación de Abogados Litigantes de CT (CTLA)',
+    trust_bar_b3: 'Asociación Americana para la Justicia (AAJ)',
+    trust_bar_b4: 'Litigantes de Veredictos Millonarios',
+    trust_bar_b5: 'Defensa Calificada 4.9★ por Clientes',
+
+    // FAQ Section Header & CT Legal Urgency Banner
+    faq_urgency_title: '⚠️ Existen Plazos Legales Estrictos en Connecticut (Conn. Gen. Stat. § 52-584)',
+    faq_urgency_desc: 'En Connecticut, generalmente tienes solo 2 años desde la fecha del accidente para presentar una demanda por lesiones—y tan solo 90 días para notificar reclamos municipales o por defectos en la vía. No esperes a que desaparezca la evidencia.',
+    faq_eyebrow: 'Respuestas Claras. Sin Rodeos Legales.',
+    faq_title: 'Preguntas Frecuentes Tras un Accidente en Connecticut',
+    faq_sub: 'Todo lo que necesitas saber para proteger tus derechos, tu atención médica y tu indemnización.',
+
+    // FAQ Accordion Items (Q1 - Q5)
+    faq_q1: '¿Puedo reclamar una indemnización en Connecticut si no tengo papeles o Seguro Social?',
+    faq_a1: 'Sí, 100%. Bajo la ley de Connecticut, toda persona lesionada tiene el derecho legal de exigir una indemnización completa por facturas médicas, salarios perdidos y dolor y sufrimiento, sin importar su estatus migratorio. Las aseguradoras no pueden usar tu estatus para negar un reclamo válido, y todo lo que hables con nosotros es estrictamente confidencial.',
+    faq_q2: '¿Cuánto cuesta contratar a Noyes & Associates? ¿Debo pagar algo por adelantado?',
+    faq_a2: 'Pagas $0 de tu bolsillo y $0 por adelantado. Trabajamos estrictamente bajo honorarios de contingencia: nuestra firma adelanta todos los gastos de corte, peritos e investigación. Solo cobramos un porcentaje del acuerdo o veredicto final que ganemos para ti. Si no ganamos tu caso, no nos debes absolutamente nada.',
+    faq_q3: '¿Cómo pago el hospital, cirugías o terapia física si no tengo seguro médico?',
+    faq_a3: 'No pospongas tu atención médica por miedo a las facturas. Trabajamos con una red de médicos especialistas, cirujanos ortopédicos y clínicas de terapia física en todo Connecticut que atienden a nuestros clientes bajo una \'Carta de Protección\', esperando a cobrar directamente del acuerdo final de tu caso.',
+    faq_q4: 'El seguro del otro conductor ya me ofreció un cheque rápido. ¿Debo aceptar o firmar?',
+    faq_a4: 'Nunca firmes ningún documento, autorización médica ni aceptes un cheque rápido de una aseguradora sin hablar antes con un abogado litigante. Esas primeras ofertas son tácticas para cerrar tu caso por una fracción mínima antes de que conozcas el costo real a largo plazo de tus lesiones.',
+    faq_q5: '¿Qué pasa si no puedo ir a la oficina por mis lesiones o mi horario de trabajo?',
+    faq_a5: 'Nosotros vamos a ti o gestionamos todo desde tu celular. Ofrecemos consultas 24/7 por teléfono y WhatsApp, firma electrónica desde tu móvil y visitas al hospital o a domicilio en todo Connecticut en casos de lesiones graves.',
+
+    // WhatsApp Prefill Message
+    whatsapp_prefill_msg: 'Hola, deseo solicitar una consulta legal gratuita por un accidente en Connecticut.'
   }
 };
 
@@ -2265,6 +2325,15 @@ function updatePageLanguage(lang) {
     langBtns.forEach(b => {
       b.classList.toggle('active', b.getAttribute('data-lang') === lang);
     });
+
+    // Dynamic WhatsApp URL with localized pre-fill message
+    const waLinks = document.querySelectorAll('.fab-whatsapp, a[href*="wa.me"]');
+    if (translations[lang] && translations[lang].whatsapp_prefill_msg) {
+      const msg = encodeURIComponent(translations[lang].whatsapp_prefill_msg);
+      waLinks.forEach(waLink => {
+        waLink.setAttribute('href', `https://wa.me/12035726748?text=${msg}`);
+      });
+    }
   }
 
   // Update window.NoyesApp currentLang state
@@ -2480,6 +2549,7 @@ if (typeof window !== 'undefined') {
     getTranslation,
     translateSelectOptions,
     updatePageLanguage,
+    initFaqAccordion,
     setLanguage: (lang) => {
       if (translations[lang]) {
         updatePageLanguage(lang);
@@ -2521,6 +2591,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageSwitcher();
   initParallaxEffects();
   initCaseEvaluatorUI();
+  initFaqAccordion();
 });
 
 /* 1. SCROLL PROGRESS BAR */
@@ -2955,5 +3026,56 @@ function initCaseEvaluatorUI() {
   window.addEventListener('noyes:languageChanged', syncUI);
   window.addEventListener('noyes:caseEvaluatorUpdated', syncUI);
   syncUI();
+}
+
+/* 12. INTERACTIVE FAQ ACCORDION CONTROLLER */
+function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  // Ensure the first item defaults to open if none is active
+  const hasActive = Array.from(faqItems).some(item => item.classList.contains('active'));
+  if (!hasActive && faqItems.length > 0) {
+    const firstItem = faqItems[0];
+    firstItem.classList.add('active');
+    const firstTrigger = firstItem.querySelector('.faq-trigger, [data-faq-toggle]');
+    if (firstTrigger) {
+      firstTrigger.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger, [data-faq-toggle]');
+    if (!trigger) return;
+
+    // Synchronize initial aria-expanded state with active class
+    const isInitiallyActive = item.classList.contains('active');
+    trigger.setAttribute('aria-expanded', isInitiallyActive ? 'true' : 'false');
+
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isCurrentlyActive = item.classList.contains('active');
+
+      // Closes sibling accordion items smoothly so only one remains expanded at a time
+      faqItems.forEach(sibling => {
+        if (sibling !== item) {
+          sibling.classList.remove('active');
+          const siblingTrigger = sibling.querySelector('.faq-trigger, [data-faq-toggle]');
+          if (siblingTrigger) {
+            siblingTrigger.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+
+      // Toggle current item
+      if (isCurrentlyActive) {
+        item.classList.remove('active');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('active');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 }
 

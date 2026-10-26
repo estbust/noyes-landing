@@ -92,6 +92,8 @@ const FIRM_DETAILS = Object.freeze({
   email: 'ask@noyeslawyers.com',
   priceRange: '$0 Upfront (Contingency Fee Only)',
   image: 'https://noyeslawyers.com/assets/images/logo.png',
+  logo: 'https://noyeslawyers.com/assets/images/logo.png',
+  favicon: 'https://noyeslawyers.com/assets/images/favicon.png',
   description: '100% bilingual (English & Spanish) Connecticut Personal Injury trial lawyers based in Stratford, CT, fighting insurance companies for maximum compensation in car, commercial truck, construction, and premises accidents—regardless of immigration status.',
   slogan: 'Defending the Injured. Demanding Maximum Compensation.',
   currenciesAccepted: 'USD',
@@ -148,14 +150,79 @@ const FIRM_DETAILS = Object.freeze({
     {
       type: 'Person',
       name: 'Juan Girón',
-      jobTitle: 'Senior Partner & Lead Trial Litigator'
+      jobTitle: 'Senior Partner & Lead Trial Litigator',
+      image: 'https://noyeslawyers.com/assets/images/juan-giron.jpg'
     },
     {
       type: 'Person',
       name: 'Shernette Noyes de Girón',
-      jobTitle: 'Founder & Managing Partner'
+      jobTitle: 'Founder & Managing Partner',
+      image: 'https://noyeslawyers.com/assets/images/shernette-noyes.png'
     }
   ]),
+  media: Object.freeze({
+    logo: 'assets/images/logo.png',
+    logoUrl: 'https://noyeslawyers.com/assets/images/logo.png',
+    favicon: 'assets/images/favicon.png',
+    faviconUrl: 'https://noyeslawyers.com/assets/images/favicon.png',
+    attorneys: Object.freeze({
+      juanGiron: Object.freeze({
+        src: 'assets/images/juan-giron.jpg',
+        url: 'https://noyeslawyers.com/assets/images/juan-giron.jpg',
+        altEn: 'Attorney Juan Girón - Lead Courtroom Trial Litigator',
+        altEs: 'Abogado Juan Girón - Abogado Litigante Principal de Juicios'
+      }),
+      shernetteNoyes: Object.freeze({
+        src: 'assets/images/shernette-noyes.png',
+        url: 'https://noyeslawyers.com/assets/images/shernette-noyes.png',
+        altEn: 'Attorney Shernette Noyes de Girón - Founder & Managing Partner',
+        altEs: 'Abogada Shernette Noyes de Girón - Fundadora y Socia Administradora'
+      }),
+      jointStudio: Object.freeze({
+        src: 'assets/images/shernette-juan-1.jpg',
+        url: 'https://noyeslawyers.com/assets/images/shernette-juan-1.jpg',
+        altEn: 'Attorneys Shernette Noyes and Juan Girón - Noyes & Associates Trial Partners',
+        altEs: 'Abogados Shernette Noyes y Juan Girón - Socios Litigantes de Noyes & Associates'
+      }),
+      jointOffice: Object.freeze({
+        src: 'assets/images/shernette-juan-2.jpg',
+        url: 'https://noyeslawyers.com/assets/images/shernette-juan-2.jpg',
+        altEn: 'Shernette Noyes and Juan Girón at Noyes & Associates Stratford Headquarters',
+        altEs: 'Shernette Noyes y Juan Girón en la Sede de Stratford de Noyes & Associates'
+      })
+    }),
+    clientStories: Object.freeze([
+      Object.freeze({
+        id: 1,
+        src: 'assets/images/story-client-1.jpg',
+        url: 'https://noyeslawyers.com/assets/images/story-client-1.jpg',
+        altEn: 'Client Recovery Story - Commercial Truck Collision Settlement',
+        altEs: 'Historia de Recuperación - Acuerdo de Colisión de Camión Comercial'
+      }),
+      Object.freeze({
+        id: 2,
+        src: 'assets/images/story-client-2.jpg',
+        url: 'https://noyeslawyers.com/assets/images/story-client-2.jpg',
+        altEn: 'Client Recovery Story - Construction Site Scaffolding Fall',
+        altEs: 'Historia de Recuperación - Caída de Andamio en Obra de Construcción'
+      }),
+      Object.freeze({
+        id: 3,
+        src: 'assets/images/story-client-3.jpg',
+        url: 'https://noyeslawyers.com/assets/images/story-client-3.jpg',
+        altEn: 'Client Recovery Story - Auto Accident and Family Financial Restoration',
+        altEs: 'Historia de Recuperación - Accidente Automovilístico y Restauración Familiar'
+      })
+    ]),
+    practiceAreas: Object.freeze({
+      realEstate: Object.freeze({
+        src: 'assets/images/real-estate.jpg',
+        url: 'https://noyeslawyers.com/assets/images/real-estate.jpg',
+        altEn: 'Connecticut Real Estate Closings and Transactions',
+        altEs: 'Bienes Raíces y Cierres Inmobiliarios en Connecticut'
+      })
+    })
+  }),
   aggregateRating: Object.freeze({
     ratingValue: '4.9',
     reviewCount: '120',
@@ -182,6 +249,7 @@ function getSchemaGraph() {
         'telephone': '+1-203-572-6748',
         'priceRange': '$0 Upfront (Contingency Fee Only)',
         'image': 'https://noyeslawyers.com/assets/images/logo.png',
+        'logo': 'https://noyeslawyers.com/assets/images/logo.png',
         'description': '100% bilingual (English & Spanish) Connecticut Personal Injury trial lawyers based in Stratford, CT, fighting insurance companies for maximum compensation in car, commercial truck, construction, and premises accidents—regardless of immigration status.',
         'slogan': 'Defending the Injured. Demanding Maximum Compensation.',
         'currenciesAccepted': 'USD',
@@ -241,12 +309,14 @@ function getSchemaGraph() {
           {
             '@type': 'Person',
             'name': 'Juan Girón',
-            'jobTitle': 'Senior Partner & Lead Trial Litigator'
+            'jobTitle': 'Senior Partner & Lead Trial Litigator',
+            'image': 'https://noyeslawyers.com/assets/images/juan-giron.jpg'
           },
           {
             '@type': 'Person',
             'name': 'Shernette Noyes de Girón',
-            'jobTitle': 'Founder & Managing Partner'
+            'jobTitle': 'Founder & Managing Partner',
+            'image': 'https://noyeslawyers.com/assets/images/shernette-noyes.png'
           }
         ],
         'aggregateRating': {
@@ -2068,7 +2138,19 @@ const translations = {
     faq_a5: 'We come to you or handle everything digitally. We offer 24/7 phone and WhatsApp consultations, electronic document signing from your phone, and hospital or home visits across Connecticut when injuries are severe.',
 
     // WhatsApp Prefill Message
-    whatsapp_prefill_msg: 'Hello, I would like to request a free case evaluation regarding an accident in Connecticut.'
+    whatsapp_prefill_msg: 'Hello, I would like to request a free case evaluation regarding an accident in Connecticut.',
+
+    // Image Alt & Media Metadata
+    alt_logo: 'Noyes & Associates - Connecticut Personal Injury & Trial Lawyers',
+    alt_juan_giron: 'Attorney Juan Girón - Lead Courtroom Trial Litigator',
+    alt_shernette_noyes: 'Attorney Shernette Noyes de Girón - Founder & Managing Partner',
+    alt_shernette_juan_studio: 'Attorneys Shernette Noyes and Juan Girón - Noyes & Associates Trial Partners',
+    alt_shernette_juan_office: 'Shernette Noyes and Juan Girón at Noyes & Associates Stratford Headquarters',
+    alt_story_client_1: 'Client Recovery Story with Noyes & Associates - Commercial Truck Collision',
+    alt_story_client_2: 'Construction Accident Recovery with Noyes & Associates - Scaffolding Fall',
+    alt_story_client_3: 'Client Auto Accident Recovery Story with Noyes & Associates',
+    alt_award_founder: 'Attorney Shernette Noyes de Girón - Sweet Mother Award Recognition',
+    alt_real_estate: 'Connecticut Real Estate Closings and Transactions'
   },
 
   es: {
@@ -2422,7 +2504,19 @@ const translations = {
     faq_a5: 'Nosotros vamos a ti o gestionamos todo desde tu celular. Ofrecemos consultas 24/7 por teléfono y WhatsApp, firma electrónica desde tu móvil y visitas al hospital o a domicilio en todo Connecticut en casos de lesiones graves.',
 
     // WhatsApp Prefill Message
-    whatsapp_prefill_msg: 'Hola, deseo solicitar una consulta legal gratuita por un accidente en Connecticut.'
+    whatsapp_prefill_msg: 'Hola, deseo solicitar una consulta legal gratuita por un accidente en Connecticut.',
+
+    // Image Alt & Media Metadata
+    alt_logo: 'Noyes & Associates - Abogados Litigantes de Lesiones Personales en Connecticut',
+    alt_juan_giron: 'Abogado Juan Girón - Abogado Litigante Principal de Juicios',
+    alt_shernette_noyes: 'Abogada Shernette Noyes de Girón - Fundadora y Socia Administradora',
+    alt_shernette_juan_studio: 'Abogados Shernette Noyes y Juan Girón - Socios Litigantes de Noyes & Associates',
+    alt_shernette_juan_office: 'Shernette Noyes y Juan Girón en la Sede de Stratford de Noyes & Associates',
+    alt_story_client_1: 'Historia de Recuperación con Noyes & Associates - Choque de Camión Comercial',
+    alt_story_client_2: 'Recuperación de Accidente en Construcción con Noyes & Associates - Caída de Andamio',
+    alt_story_client_3: 'Historia de Recuperación por Accidente de Auto con Noyes & Associates',
+    alt_award_founder: 'Abogada Shernette Noyes de Girón - Reconocimiento Sweet Mother Award',
+    alt_real_estate: 'Cierres de Bienes Raíces y Transacciones Inmobiliarias en Connecticut'
   }
 };
 
@@ -2565,6 +2659,14 @@ function updatePageLanguage(lang) {
       const key = el.getAttribute('data-i18n-aria-label');
       if (translations[lang] && translations[lang][key] !== undefined) {
         el.setAttribute('aria-label', translations[lang][key]);
+      }
+    });
+
+    // Update alt attributes for images
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+      const key = el.getAttribute('data-i18n-alt');
+      if (translations[lang] && translations[lang][key] !== undefined) {
+        el.setAttribute('alt', translations[lang][key]);
       }
     });
 
@@ -2787,6 +2889,7 @@ if (typeof window !== 'undefined') {
     version: '2.2.0',
     currentLang,
     firmDetails: FIRM_DETAILS,
+    media: FIRM_DETAILS.media,
     getSchemaGraph,
     caseTypes: CASE_TYPES,
     lawConstants: CT_LAW_CONSTANTS,
